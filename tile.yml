@@ -1,0 +1,55 @@
+# ------------------------------------------------------------------------
+#
+# Copyright 2017 WSO2, Inc. (http://wso2.com)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License
+#
+# ------------------------------------------------------------------------
+---
+name: pcf-example-tile
+icon_file: resources/logo.png
+label: PCF Example tile
+description: PCF example tile
+
+stemcell_criteria:
+  os: ubuntu-xenial
+  requires_cpi: false
+  version: '621.76'
+
+forms:
+  - name: Sample configuration
+    label: Sample configuration
+    description: Sample configuration
+    properties:
+      - name: echo
+        type: string
+        label: Echo
+packages:
+  - name: loop
+    type: bosh-release
+    path: loop-bosh-release.tgz
+    jobs:
+      - name: loop
+        instances: 1
+        templates:
+          - name: loop
+            release: loop-release
+        memory: 4096
+        ephemeral_disk: 4096
+        persistent_disk: 16384
+        cpu: 2
+        static_ip: 1
+        max_in_flight: 1
+        properties:
+          loop:
+           echo: (( .properties.echo.value ))

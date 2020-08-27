@@ -1,0 +1,14 @@
+---
+name: loop
+
+templates:
+    ctl.erb: bin/ctl
+    loop-config.erb: loop-config
+
+
+packages:
+    - loop
+
+properties:
+ loop.echo:
+   description: Echo

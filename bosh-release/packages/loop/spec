@@ -1,0 +1,5 @@
+---
+name: loop
+
+files:
+  - loop/loop.sh

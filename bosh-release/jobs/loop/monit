@@ -1,0 +1,5 @@
+check process loop
+  with pidfile /var/vcap/sys/run/loop/loop.pid
+  start program "/var/vcap/jobs/loop/bin/ctl start" with timeout 60 seconds
+  stop program "/var/vcap/jobs/loop/bin/ctl stop" with timeout 60 seconds
+  group vcap

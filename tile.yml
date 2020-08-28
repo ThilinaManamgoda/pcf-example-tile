@@ -34,6 +34,32 @@ forms:
       - name: echo
         type: string
         label: Echo
+      - name: rsa_cert
+        type: rsa_cert_credentials
+        label: Cert
+        configurable: true
+      - name: test_collection
+        type: collection
+        label: "Key pairs"
+        description: These key pairs will be added to the key store
+        optional: true
+        configurable: true
+        property_blueprints:
+          - name: collection_alias
+            type: string
+            label: Alias
+            configurable: true
+          - name: collection_rsa_cert
+            type: rsa_cert_credentials
+            label: "Key pair"
+            configurable: true
+        named_manifests:
+          - name: ca_certs
+            manifest: |
+              alias:  (( current_record.collection_alias.value ))
+              private_key:  (( current_record.collection_rsa_cert.private_key_pem ))
+              public_key:  (( current_record.collection_rsa_cert.public_key_pem ))
+              certificate: (( current_record.collection_rsa_cert.cert_pem ))
 packages:
   - name: loop
     type: bosh-release
@@ -53,3 +79,8 @@ packages:
         properties:
           loop:
            echo: (( .properties.echo.value ))
+           public_key_pem: (( .properties.rsa_cert.public_key_pem ))
+           private_key_pem: (( .properties.rsa_cert.private_key_pem ))
+           cert_pem: (( .properties.rsa_cert.cert_pem ))
+           cert_and_private_key_pems: (( .properties.rsa_cert.cert_and_private_key_pems ))
+           test_collection_ca_certs: (( .properties.test_collection.parsed_manifest(ca_certs) ))

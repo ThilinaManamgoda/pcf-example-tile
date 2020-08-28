@@ -12,3 +12,13 @@ packages:
 properties:
  loop.echo:
    description: Echo
+ loop.public_key_pem:
+   description: public_key_pem
+ loop.private_key_pem:
+   description: private_key_pem
+ loop.cert_pem:
+   description: cert_pem
+ loop.cert_and_private_key_pems:
+   description: cert_and_private_key_pems
+ loop.test_collection_ca_certs:
+   description: test_collection_ca_certs

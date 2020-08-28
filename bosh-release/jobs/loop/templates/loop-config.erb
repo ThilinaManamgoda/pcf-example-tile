@@ -1,1 +1,18 @@
 echo: "<%= p("loop.echo") %>"
+
+
+public_key_pem: "<%= p("loop.public_key_pem") %>"
+
+
+private_key_pem: "<%= p("loop.private_key_pem") %>"
+
+
+cert_pem: "<%= p("loop.cert_pem") %>"
+
+
+cert_and_private_key_pems: "<%= p("loop.cert_and_private_key_pems") %>"
+
+
+<% p("loop.test_collection_ca_certs").each do |val| %>
+echo "<%= val["certificate"] %>" >> <%= val["alias"] %>.cert
+<% end %>
